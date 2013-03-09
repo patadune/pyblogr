@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block main %}
+  {% if error %}
+      <div class="error">{{error}}</div>
+  {% endif %}
+      <div class="add_post">
+        <form action="/add" method="POST">
+          <p>
+            <input type="text" name="title" /> (title optional)
+          </p>
+          <textarea  name="content"></textarea><br />
+          <input type="submit" name="save" value="Send" />
+        </form>
+       </div>
+       <p><a href="/">Back</a></p>
+{% endblock %}

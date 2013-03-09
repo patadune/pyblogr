@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="post">
+  <div class="datetime">
+    {{post.datetime}}<br />
+    <a href="#">0 commentaires</a><br />
+    <a href="/">accueil</a>
+  </div>
+  {% if post.title %}
+  <h2>{{post.title}}</h2>
+  {% endif %}
+  {{post.content|safe}}
+</div>
+<a href="/">Back</a>
+{% endblock %}

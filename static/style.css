@@ -1,0 +1,162 @@
+/* PyBlog Main Theme
+ * Based on langer's Tumblr theme (http://langer.tumblr.com/)
+ */
+
+body, html {
+     background: none repeat scroll 0px 0px #FFFFFF;
+     border: 0px none;
+     color: #333333;
+     font-family: Georgia,'Times New Roman',Times;
+     font-size: 16px;
+     line-height: 150%;
+     margin: 0px;
+     padding: 0px;
+}
+
+pre {
+     font-size: 10px;
+}
+
+a {
+     background: none repeat scroll 0px 0px #F9FC7E;
+     color:#333333;
+     padding: 1px 2px;
+     text-decoration: none;
+}
+
+a:hover {
+     background: none repeat scroll 0% 0% transparent;
+     color: #666666;
+}
+
+.red {
+	background: none repeat scroll 0px 0px #fcb0b3;
+}
+.red:hover {
+	text-decoration: line-through;
+	color: red;
+}
+
+h1, h2, h3, h4 {
+     color: #666666;
+     font-weight: normal;
+     margin-bottom: 0px;
+}
+
+img {
+     background: none repeat scroll 0% 0% #FFFFFF ! important;
+     border: 1px solid #999999;
+     margin: 0px;
+     padding: 5px;
+}
+
+img a {
+     background: none repeat scroll 0% 0% #FFFFFF ! important;
+     margin: 0px;
+     text-decoration: none ! important;
+}
+
+input, textarea {
+   border: 1px solid #999999;
+}
+
+.add_post { text-align: center; }
+.add_post input {
+    display: inline;
+}
+
+.add_post textarea {
+    width: 400px;
+    height:200px;
+}
+
+textarea { resize:vertical; }
+
+.photo a {
+     background: none repeat scroll 0% 0% #FFFFFF ! important;
+     text-decoration: none ! important;
+}
+
+.header {
+     margin-bottom: 20px;
+}
+
+.wrapper {
+     margin: auto;
+     width: 520px;
+}
+
+.main {
+     margin: 50px 0px;
+}
+
+.datetime {
+     border-right: 1px solid #999999;
+     clear: both;
+     color: #666666;
+     float: left;
+     font-size: 12px;
+     line-height: 150%;
+     margin-left: -250px;
+     padding-right: 25px;
+     position: relative;
+     text-align: right;
+     width: 200px;
+}
+
+.search_query{ font-style:italic; }
+
+.error {
+     color: #e66218;
+     background-color: #f5c0a2;
+     text-align: center;
+     border: 1px solid #e66218;
+     width: 400px;
+     margin: auto;
+     margin-bottom: 30px;
+}
+
+.navleft {
+     float: left;
+     font-size: 12px;
+     position: relative;
+}
+
+.navright {
+     float: right;
+     font-size: 12px;
+     position: relative;
+}
+
+.navcenter {
+     font-size: 12px;
+     text-align: center;
+     width: 500px;
+}
+
+.post {
+     padding-bottom: 30px;
+}
+
+.short_quote, .medium_quote, .long_quote {
+     color: #666666;
+     margin: 0px;
+     padding: 0px;
+}
+
+.short_quote { font-size: 62px; line-height: 110%; }
+.medium_quote { font-size: 36px; line-height: 115%; }
+.long_quote { font-size: 24px; line-height: 130%; }
+
+blockquote:before {
+     content: "“";
+     float: left;
+     font-size: 48pt;
+     font-style: normal;
+     padding-right: 10px;
+     padding-top: 10px;
+}
+
+blockquote {
+     font-style: italic;
+}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block main %}
+  {% for post in posts %}
+      <div class="post">
+        <div class="datetime">
+          {{post.datetime}}<br />
+          <a href="#">0 commentaires</a><br />
+          <a href="/post/{{post.rowid}}">permalien</a>
+        </div>
+        {% if post.title %}
+        <h2>{{post.title}}</h2>
+        {% endif %}
+        {{post.content|safe}}
+      </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block main %}
+  {% for post in posts %}
+    <a href="/del/{{ post['rowid'] }}" class="red">{{ post['title'] }}</a><br />
+  {% endfor %}
+  <p><a href="/">Back</a></p>
+{% endblock %}
