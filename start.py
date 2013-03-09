@@ -44,10 +44,20 @@ def require_login():
 
 
 
-
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+
+
+db = connect_db()
+try:
+  db.execute("SELECT * FROM entries")
+except sqlite3.OperationalError:
+  print "Table 'entries' not found, creating..."
+  db.execute(open("entries.sql").read())
+  db.commit()
+  db.close()
+  del(db)
 
 
 
