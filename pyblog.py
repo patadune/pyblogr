@@ -117,7 +117,7 @@ def add_post():
 def list_posts_deletion():
   require_login()
   cur = g.db.cursor()
-  cur.execute('SELECT rowid, title FROM '+app.config['TABLE'])
+  cur.execute('SELECT rowid, title FROM entries')
   posts = cur.fetchall()
   return render_template('del_post.html', posts=posts)
 
