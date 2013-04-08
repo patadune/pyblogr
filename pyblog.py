@@ -87,7 +87,7 @@ def index():
 @app.route('/post/<int:postId>')
 def show_news(postId):
   cur = g.db.cursor()
-  cur.execute('SELECT * FROM entries WHERE rowid=%s' % postId)
+  cur.execute('SELECT * FROM entries WHERE rowid=?', (postId,))
   data = cur.fetchone()
   post = {'title': data['title'],
           'content': data['content'],
@@ -125,7 +125,7 @@ def list_posts_deletion():
 def delete_post(postId):
   require_login()
   cur = g.db.cursor()
-  cur.execute('DELETE FROM entries WHERE rowid=%s' % postId)
+  cur.execute('DELETE FROM entries WHERE rowid=?', (postId,))
   g.db.commit()
   return redirect(url_for('list_posts_deletion'))
 
@@ -143,7 +143,7 @@ def search():
 @app.route('/search/<keyword>')
 def search_handler(keyword):
   cur = g.db.cursor()
-  cur.execute('SELECT * FROM entries WHERE entries MATCH "%s"' % keyword)
+  cur.execute('SELECT * FROM entries WHERE entries MATCH ?', (keyword,))
   posts = cur.fetchall()
   return render_template('search.html', keyword=keyword, posts=posts)
   
@@ -155,7 +155,7 @@ def login():
     username = request.form['username']
     password = request.form['password']
     cur = g.db.cursor()
-    cur.execute('SELECT * FROM users WHERE username="%s"' % username)
+    cur.execute("SELECT * FROM users WHERE username=?", (username,))
     login_info = cur.fetchone()
     if login_info == None:
       return 'wrong credentials, try again'
@@ -173,5 +173,6 @@ def logout():
 @app.route('/admin')
 def admin():
   return render_template('admin.html', session=session)
+
 if __name__ == '__main__':
   app.run()
