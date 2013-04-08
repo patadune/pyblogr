@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 {% block main %}
   {% for post in posts %}
-    <a href="/del/{{ post['rowid'] }}" class="red">{{ post['title'] }}</a><br />
+    {% if post['title'] %}
+      <a href="/del/{{ post['rowid'] }}" class="red">{{ post['title'] }}</a><br />
+    {% else %}
+      <a href="/del/{{ post['rowid'] }}" class="red">&lt;no title&gt;</a><br />
+    {% endif %}
   {% endfor %}
   <p><a href="/">Back</a></p>
 {% endblock %}
