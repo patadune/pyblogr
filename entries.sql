@@ -1,1 +1,1 @@
-CREATE VIRTUAL TABLE entries USING fts3(title, content, datetime)
+CREATE VIRTUAL TABLE entries USING fts3(type, title, content, datetime, media)
