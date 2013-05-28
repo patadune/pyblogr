@@ -18,19 +18,19 @@ pre {
 }
 
 a {
-     background: none repeat scroll 0px 0px #F9FC7E;
+     background-color: #F9FC7E;
      color:#333333;
      padding: 1px 2px;
      text-decoration: none;
 }
 
 a:hover {
-     background: none repeat scroll 0% 0% transparent;
+     background-color: transparent;
      color: #666666;
 }
 
 .red {
-	background: none repeat scroll 0px 0px #fcb0b3;
+	background-color: #fcb0b3;
 }
 .red:hover {
 	text-decoration: line-through;
@@ -44,14 +44,14 @@ h1, h2, h3, h4 {
 }
 
 img {
-     background: none repeat scroll 0% 0% #FFFFFF ! important;
+     background-color: #FFFFFF ! important;
      border: 1px solid #999999;
      margin: 0px;
      padding: 5px;
 }
 
 img a {
-     background: none repeat scroll 0% 0% #FFFFFF ! important;
+     background-color: #FFFFFF ! important;
      margin: 0px;
      text-decoration: none ! important;
 }
@@ -60,33 +60,21 @@ input, textarea {
    border: 1px solid #999999;
 }
 
-.add_post { text-align: center; }
-.add_post input {
-    display: inline;
-}
-
-.add_post textarea {
-    width: 400px;
-    height:200px;
-}
-
-textarea { resize:vertical; }
-
 .photo a {
-     background: none repeat scroll 0% 0% #FFFFFF ! important;
+     background-color: #FFFFFF ! important;
      text-decoration: none ! important;
 }
 
-.header {
+#header {
      margin-bottom: 20px;
 }
 
-.wrapper {
+#wrapper {
      margin: auto;
      width: 520px;
 }
 
-.main {
+#main {
      margin: 50px 0px;
 }
 
@@ -159,4 +147,25 @@ blockquote:before {
 
 blockquote {
      font-style: italic;
+}
+
+/* 
+ * ADMIN
+ */
+ 
+.add_post { text-align: center; }
+
+.add_post input { display: inline; }
+
+.add_post textarea {
+    width: 400px;
+    height:200px;
+}
+
+textarea { resize:vertical; }
+
+.login_form {
+    text-align: right;
+    width: 300px;
+    margin: auto;
 }

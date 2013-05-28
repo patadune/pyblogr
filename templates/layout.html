@@ -10,35 +10,37 @@
   {% endblock %}
 </head>
 <body>
-  <div class="wrapper">
-    <div class="header">
+  <div id="wrapper">
+    <div id="header">
       <h1><a href="/">33 mph.</a></h1>
       <p class="description"><em>"Le gars était précis, pas pressé, un peu givré aussi..."</em></p>
     </div>
-    <div class="main">
+    <div id="main">
       {% block main %}{% endblock %}
     </div>
 
-    <div class="post">
-      <div class="navcenter">
-        <form action="/search" method="get">
-          <a href="/">accueil</a>
-          {% if session.username %}
-            <a href="/admin">logged as <strong>{{session.username}}</strong></a>
-            <a href="/logout">logout</a>
-          {% else %}
-            <a href="/login">login</a>
-          {% endif %}
-          <a href="/rss">rss</a>
-          <input name="q" type="text">
-          <input value="Recherche" type="submit">
-        </form>
+    <div id="footer">
+      <div class="post">
+        <div class="navcenter">
+          <form action="/search" method="get">
+            <a href="/">accueil</a>
+            {% if session.username %}
+              <a href="/admin">logged as <strong>{{session.username}}</strong></a>
+              <a href="/logout">logout</a>
+            {% else %}
+              <a href="/login">login</a>
+            {% endif %}
+            <a href="/rss">rss</a>
+            <input name="q" type="text">
+            <input value="Recherche" type="submit">
+          </form>
+        </div>
       </div>
-    </div>
 
-    <div class="post">
-      <div class="navcenter">
-        Design par <a href="http://langer.tumblr.com/">langer</a>, propulsé par <a href="http://flask.pocoo.org/">Flask</a> et un <a href="http://www.raspberrypi.org/">Raspberry Pi</a>.
+      <div class="post">
+        <div class="navcenter">
+          Design par <a href="http://langer.tumblr.com/">langer</a>, propulsé par <a href="http://flask.pocoo.org/">Flask</a> et un <a href="http://www.raspberrypi.org/">Raspberry Pi</a>.
+        </div>
       </div>
     </div>
   </div>
