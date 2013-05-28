@@ -20,7 +20,8 @@ pre {
 a {
      background-color: #F9FC7E;
      color:#333333;
-     padding: 1px 2px;
+     padding: 1px 4px;
+     border-radius: 5px;
      text-decoration: none;
 }
 
