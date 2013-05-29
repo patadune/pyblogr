@@ -9,13 +9,10 @@ import hashlib
 
 
 
-
-CONFIG_FILE = "config.ini"
-
-DATABASE = 'master.db'
+DATABASE = 'master.sqlite'
 DEBUG = True
-SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02'
-SALT = 'L8m3DTnYdT5EzcWDwxYP'
+SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02' # Used by Flask sessions, keep it here !
+SALT = 'L8m3DTnYdT5EzcWDwxYP'                           # For storing password (username+salt+password)
 
 
 
@@ -57,7 +54,7 @@ except sqlite3.OperationalError:
   db.execute(open("entries.sql").read())
   db.commit()
   db.close()
-  del(db)
+del(db)
 
 
 
@@ -105,7 +102,7 @@ def add_post():
       timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
       if content:
         cur = g.db.cursor()
-        cur.execute('INSERT INTO entries(title, content, datetime) VALUES (?, ?, ?)', (title, content, timestamp))
+        cur.execute('INSERT INTO entries(type, title, content, datetime) VALUES (?, ?, ?, ?)', ("text", title, content, timestamp))
         g.db.commit()
         return render_template('done_add_post.html', id=cur.lastrowid)
       
