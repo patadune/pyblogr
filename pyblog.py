@@ -92,7 +92,7 @@ def show_news(postId):
   
   return render_template('one_post.html', post=post)
 
-@app.route('/add', methods=['POST', 'GET'])
+@app.route('/manage/add', methods=['POST', 'GET'])
 def add_post():
   require_login()
   error = None
@@ -110,7 +110,7 @@ def add_post():
       
   return render_template('add_post.html', error=error)
 
-@app.route('/del')
+@app.route('/manage/delete')
 def list_posts_deletion():
   require_login()
   cur = g.db.cursor()
@@ -118,7 +118,7 @@ def list_posts_deletion():
   posts = cur.fetchall()
   return render_template('del_post.html', posts=posts)
 
-@app.route('/del/<int:postId>')
+@app.route('/manage/del/<int:postId>')
 def delete_post(postId):
   require_login()
   cur = g.db.cursor()
@@ -127,7 +127,6 @@ def delete_post(postId):
   return redirect(url_for('list_posts_deletion'))
 
 @app.route('/search')
-@app.route('/search/')
 def search():
   resp = make_response()
   resp.status = '302 Found'
@@ -159,7 +158,7 @@ def login():
     auth_string = hashlib.sha1(username+app.config['SALT']+password).hexdigest()
     if auth_string == login_info['password']:
       session['username'] = username
-      return redirect(url_for('admin'))
+      return redirect(url_for('manage'))
   return render_template('login.html')
   
 @app.route('/logout')
@@ -167,9 +166,9 @@ def logout():
   session.pop('username', None)
   return redirect(url_for('index'))
 
-@app.route('/admin')
-def admin():
-  return render_template('admin.html', session=session)
+@app.route('/manage')
+def manage():
+  return render_template('manage.html', session=session)
 
 if __name__ == '__main__':
   app.run()

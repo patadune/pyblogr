@@ -25,7 +25,7 @@
           <form action="/search" method="get">
             <a href="/">accueil</a>
             {% if session.username %}
-              <a href="/admin">logged as <strong>{{session.username}}</strong></a>
+              <a href="/manage">logged as <strong>{{session.username}}</strong></a>
               <a href="/logout">logout</a>
             {% else %}
               <a href="/login">login</a>
