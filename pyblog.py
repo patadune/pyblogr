@@ -126,6 +126,10 @@ def delete_post(postId):
   g.db.commit()
   return redirect(url_for('list_posts_deletion'))
 
+@app.route('/rss')
+def rss():
+  return 'No rss (yet).'
+
 @app.route('/search')
 def search():
   resp = make_response()
