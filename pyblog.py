@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, make_response, session, abort, g
-import sqlite3, os
+import sqlite3
+import os
 from ConfigParser import ConfigParser
 from datetime import datetime
 from markdown import markdown
@@ -11,9 +12,9 @@ import hashlib
 
 DATABASE = 'master.sqlite'
 DEBUG = True
-SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02' # Used by Flask sessions, keep it here !
-SALT = 'L8m3DTnYdT5EzcWDwxYP'                           # For storing password (username+salt+password)
-
+SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02'     # Used by Flask sessions, keep it here !
+SALT = 'L8m3DTnYdT5EzcWDwxYP'                               # For storing password (username+salt+password)
+DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'                           # ISO8601 format (no timezone support though)
 
 
 
@@ -27,9 +28,10 @@ def connect_db():
 
 def formatDate(isodate):
   
-  monthsFR = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+  monthsFR = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet',
+              'août', 'septembre', 'octobre', 'novembre', 'décembre']
   
-  timehandler = datetime.strptime(isodate, "%Y-%m-%dT%H:%M:%S")
+  timehandler = datetime.strptime(isodate, DATE_FORMAT)
   month = timehandler.month - 1
   return unicode(timehandler.strftime("%d "+monthsFR[month]+" %Y à %Hh%M"), 'utf-8')
 
@@ -99,10 +101,10 @@ def add_post():
   if request.method == 'POST':
       title = request.form['title']
       content = markdown(request.form['content'])
-      timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+      timestamp = datetime.now().strftime(DATE_FORMAT)
       if content:
         cur = g.db.cursor()
-        cur.execute('INSERT INTO entries(type, title, content, datetime) VALUES (?, ?, ?, ?)', ("text", title, content, timestamp))
+        cur.execute('INSERT INTO entries(type, title, content, datetime) VALUES (?, ?, ?, ?)',("text", title, content, timestamp))
         g.db.commit()
         return render_template('done_add_post.html', id=cur.lastrowid)
       
@@ -172,6 +174,7 @@ def logout():
 
 @app.route('/manage')
 def manage():
+  require_login()
   return render_template('manage.html', session=session)
 
 if __name__ == '__main__':

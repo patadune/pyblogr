@@ -2,9 +2,9 @@
 {% block main %}
   {% for post in posts %}
     {% if post['title'] %}
-      <a href="/del/{{ post['rowid'] }}" class="red">{{ post['title'] }}</a><br />
+      <a href="/manage/del/{{ post['rowid'] }}" class="red">{{ post['title'] }}</a><br />
     {% else %}
-      <a href="/del/{{ post['rowid'] }}" class="red">&lt;no title&gt;</a><br />
+      <a href="/manage/del/{{ post['rowid'] }}" class="red">&lt;no title&gt;</a><br />
     {% endif %}
   {% endfor %}
 {% endblock %}
