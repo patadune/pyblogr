@@ -13,11 +13,11 @@
     <div id="header">
       <h1><a href="/">33 mph.</a></h1>
       <p class="description"><em>"Le gars était précis, pas pressé, un peu givré aussi..."</em></p>
-      {% with messages = get_flashed_messages() %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
           {% endfor %}
           </ul>
         {% endif %}

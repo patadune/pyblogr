@@ -80,7 +80,6 @@ def index():
                   'title': row['title'],
                   'content': row['content'],
                   'datetime': formatDate(row['datetime'])})
-  
   return render_template('list_posts.html', posts=posts, session=session)
 
 @app.route('/post/<int:postId>')
@@ -106,10 +105,10 @@ def add_post():
         cur = g.db.cursor()
         cur.execute('INSERT INTO entries(type, title, content, datetime) VALUES (?, ?, ?, ?)',("text", title, content, timestamp))
         g.db.commit()
-        return render_template('done_add_post.html', id=cur.lastrowid)
-      
-      error = 'You missed a field.'
-      
+        flash('Post added successfully.')
+        return redirect(url_for('manage'))
+      else:
+        flash('You missed a field.', 'error')
   return render_template('add_post.html', error=error)
 
 @app.route('/manage/delete')
@@ -126,11 +125,13 @@ def delete_post(postId):
   cur = g.db.cursor()
   cur.execute('DELETE FROM entries WHERE rowid=?', (postId,))
   g.db.commit()
+  flash('Post successfully deleted.')
   return redirect(url_for('list_posts_deletion'))
 
 @app.route('/rss')
 def rss():
-  return 'No rss (yet).'
+  flash('No rss (yet).')
+  return redirect(url_for('index'))
 
 @app.route('/search')
 def search():
@@ -152,6 +153,7 @@ def search_handler(keyword):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if session.has_key('username'):
+    flash('You\'re already logged in !')
     return redirect(url_for('index'))
   if request.method == "POST":
     username = request.form['username']
@@ -160,17 +162,19 @@ def login():
     cur.execute("SELECT * FROM users WHERE username=?", (username,))
     login_info = cur.fetchone()
     if login_info == None:
-      return 'wrong credentials, try again'
+      flash('Wrong credentials, please try again.', 'error')
+      return redirect(url_for('login'))
     auth_string = hashlib.sha1(username+app.config['SALT']+password).hexdigest()
     if auth_string == login_info['password']:
       session['username'] = username
-      flash("Successful logged in !")
+      flash('Successfully logged in !')
       return redirect(url_for('manage'))
   return render_template('login.html')
   
 @app.route('/logout')
 def logout():
   session.pop('username', None)
+  flash("Successfully logged out.")
   return redirect(url_for('index'))
 
 @app.route('/manage')
