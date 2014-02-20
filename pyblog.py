@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, redirect, url_for, make_response, session, abort, g
+from flask import Flask, render_template, flash, request, redirect, url_for, make_response, session, abort, g
 import sqlite3
 import os
 from ConfigParser import ConfigParser
@@ -164,6 +164,7 @@ def login():
     auth_string = hashlib.sha1(username+app.config['SALT']+password).hexdigest()
     if auth_string == login_info['password']:
       session['username'] = username
+      flash("Successful logged in !")
       return redirect(url_for('manage'))
   return render_template('login.html')
   
