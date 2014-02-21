@@ -95,14 +95,27 @@ input, textarea {
 
 .search_query{ font-style:italic; }
 
-.error {
-     color: #e66218;
-     background-color: #f5c0a2;
-     text-align: center;
-     border: 1px solid #e66218;
+.flashes li {
      width: 400px;
-     margin: auto;
-     margin-bottom: 30px;
+     border-radius: 4px;
+     margin-bottom: 5px;
+     text-align: center;
+     list-style: none;
+     color: #fff;
+     transition: opacity 0.5s;
+}
+
+.flashes > li:hover {
+     opacity: 0.8;
+}
+
+.error {
+     background-color: #e74c3c;
+}
+
+.message {
+     background-color: #2ecc71;
+
 }
 
 .navleft {

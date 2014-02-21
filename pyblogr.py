@@ -169,6 +169,8 @@ def login():
       session['username'] = username
       flash('Successfully logged in !')
       return redirect(url_for('manage'))
+    else:
+      flash('Wrong credentials, please try again.', 'error')
   return render_template('login.html')
   
 @app.route('/logout')
