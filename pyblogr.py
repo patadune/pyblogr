@@ -96,7 +96,6 @@ def show_news(postId):
 @app.route('/manage/add', methods=['POST', 'GET'])
 def add_post():
   require_login()
-  error = None
   if request.method == 'POST':
       title = request.form['title']
       content = markdown(request.form['content'])
@@ -108,8 +107,8 @@ def add_post():
         flash('Post added successfully.')
         return redirect(url_for('manage'))
       else:
-        flash('You missed a field.', 'error')
-  return render_template('add_post.html', error=error)
+        flash('You have to write something in your post !', 'error')
+  return render_template('add_post.html')
 
 @app.route('/manage/delete')
 def list_posts_deletion():
@@ -184,6 +183,14 @@ def logout():
 def manage():
   require_login()
   return render_template('manage.html', session=session)
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('page_not_found.html'), 404
+
+@app.errorhandler(401)
+def unauthorized(error):
+    return render_template('unauthorized.html'), 401
 
 if __name__ == '__main__':
   app.run()
