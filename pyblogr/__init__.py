@@ -11,7 +11,6 @@ import hashlib
 
 
 DATABASE = 'master.sqlite'
-DEBUG = True
 SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02'     # Used by Flask sessions, keep it here !
 SALT = 'L8m3DTnYdT5EzcWDwxYP'                               # For storing password (username+salt+password)
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'                           # ISO8601 format (no timezone support though)
@@ -191,6 +190,3 @@ def page_not_found(error):
 @app.errorhandler(401)
 def unauthorized(error):
     return render_template('unauthorized.html'), 401
-
-if __name__ == '__main__':
-  app.run()
