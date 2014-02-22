@@ -128,7 +128,7 @@ def delete_post(postId):
 
 @app.route('/rss')
 def rss():
-  flash('No rss (yet).')
+  flash('No rss (yet).', 'error')
   return redirect(url_for('index'))
 
 @app.route('/search')

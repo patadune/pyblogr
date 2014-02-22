@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block main %}
-<div class="post">
+<article>
   <div class="datetime">
     {{post.datetime}}<br />
     <a href="#">0 commentaires</a><br />
@@ -10,5 +10,5 @@
   <h2>{{post.title}}</h2>
   {% endif %}
   {{post.content|safe}}
-</div>
+</article>
 {% endblock %}

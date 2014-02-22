@@ -2,15 +2,16 @@
  * Based on langer's Tumblr theme (http://langer.tumblr.com/)
  */
 
-body, html {
+body {
      background: none repeat scroll 0px 0px #FFFFFF;
      border: 0px none;
      color: #333333;
      font-family: Georgia,'Times New Roman',Times;
      font-size: 16px;
      line-height: 150%;
-     margin: 0px;
      padding: 0px;
+     margin: auto;
+     width: 520px;
 }
 
 pre {
@@ -66,13 +67,12 @@ input, textarea {
      text-decoration: none ! important;
 }
 
-#header {
+header {
      margin-bottom: 20px;
 }
 
-#wrapper {
-     margin: auto;
-     width: 520px;
+footer {
+     padding-bottom: 30px;
 }
 
 #main {
@@ -136,7 +136,7 @@ input, textarea {
      width: 500px;
 }
 
-.post {
+article {
      padding-bottom: 30px;
 }
 

@@ -9,49 +9,43 @@
   {% endblock %}
 </head>
 <body>
-  <div id="wrapper">
-    <div id="header">
-      <h1><a href="/">33 mph.</a></h1>
-      <p class="description"><em>"Le gars était précis, pas pressé, un peu givré aussi..."</em></p>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <ul class="flashes">
-          {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-          {% endfor %}
-          </ul>
+  <header>
+    <h1><a href="/">33 mph.</a></h1>
+    <p class="description"><em>"Le gars était précis, pas pressé, un peu givré aussi..."</em></p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </header>
+  <section id="main">
+    {% block main %}{% endblock %}
+  </section>
+
+  <footer>
+    <nav class="navcenter">
+      <form action="/search" method="get">
+        <a href="/">accueil</a>
+        {% if session.username %}
+          <a href="/manage">logged as <strong>{{session.username}}</strong></a>
+          <a href="/logout">logout</a>
+        {% else %}
+          <a href="/login">login</a>
         {% endif %}
-      {% endwith %}
-    </div>
-    <div id="main">
-      {% block main %}{% endblock %}
-    </div>
+        <a href="/rss">rss</a>
+        <input name="q" type="text">
+        <input value="Recherche" type="submit">
+      </form>
+    </nav>
 
-    <div id="footer">
-      <div class="post">
-        <div class="navcenter">
-          <form action="/search" method="get">
-            <a href="/">accueil</a>
-            {% if session.username %}
-              <a href="/manage">logged as <strong>{{session.username}}</strong></a>
-              <a href="/logout">logout</a>
-            {% else %}
-              <a href="/login">login</a>
-            {% endif %}
-            <a href="/rss">rss</a>
-            <input name="q" type="text">
-            <input value="Recherche" type="submit">
-          </form>
-        </div>
-      </div>
-
-      <div class="post">
-        <div class="navcenter">
-          Design par <a href="http://langer.tumblr.com/">langer</a>, propulsé par <a href="http://flask.pocoo.org/">Flask</a> et un <a href="http://www.raspberrypi.org/">Raspberry Pi</a>.
-        </div>
-      </div>
-    </div>
-  </div>
+    <nav class="navcenter">
+      Design par <a href="http://langer.tumblr.com/">langer</a>, propulsé par <a href="http://flask.pocoo.org/">Flask</a> et un <a href="http://www.raspberrypi.org/">Raspberry Pi</a>.
+    </nav>
+  </footer>
 </body>
 </html>
 
