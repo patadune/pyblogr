@@ -12,7 +12,6 @@ import hashlib
 
 DATABASE = 'master.sqlite'
 SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02'     # Used by Flask sessions, keep it here !
-SALT = 'L8m3DTnYdT5EzcWDwxYP'                               # For storing password (username+salt+password)
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'                           # ISO8601 format (no timezone support though)
 
 
@@ -147,30 +146,31 @@ def search_handler(keyword):
   cur.execute('SELECT * FROM entries WHERE entries MATCH ?', (keyword,))
   posts = cur.fetchall()
   return render_template('search.html', keyword=keyword, posts=posts)
-  
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if session.has_key('username'):
     flash('You\'re already logged in !')
     return redirect(url_for('index'))
+
   if request.method == "POST":
-    username = request.form['username']
-    password = request.form['password']
     cur = g.db.cursor()
-    cur.execute("SELECT * FROM users WHERE username=?", (username,))
+    cur.execute("SELECT * FROM users WHERE username=?", (request.form['username'],))
     login_info = cur.fetchone()
     if login_info == None:
       flash('Wrong credentials, please try again.', 'error')
-      return redirect(url_for('login'))
-    auth_string = hashlib.sha1(username+app.config['SALT']+password).hexdigest()
+
+    auth_string = hashlib.sha256(login_info['salt']+request.form['password']).hexdigest()
+    
     if auth_string == login_info['password']:
-      session['username'] = username
+      session['username'] = request.form['username']
       flash('Successfully logged in !')
       return redirect(url_for('manage'))
     else:
       flash('Wrong credentials, please try again.', 'error')
+
   return render_template('login.html')
-  
+
 @app.route('/logout')
 def logout():
   require_login()
