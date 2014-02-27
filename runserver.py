@@ -2,6 +2,5 @@
 
 from pyblogr import app
 
-app.run(debug=True)
 
-
+app.run()

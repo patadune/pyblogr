@@ -1,26 +1,17 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, flash, request, redirect, url_for, make_response, session, abort, g
-import sqlite3
 import os
-from ConfigParser import ConfigParser
-from datetime import datetime
-from markdown import markdown
+import sqlite3
+import json
 import hashlib
+from datetime import datetime
 
-
-
-
-DATABASE = 'master.sqlite'
-SECRET_KEY = 'fa26be19de6bff93f70bc2308434e4a440bbad02'     # Used by Flask sessions, keep it here !
-DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'                           # ISO8601 format (no timezone support though)
-
-
-
+from flask import Flask, render_template, flash, request, redirect, url_for, make_response, session, abort, g
+from markdown import markdown
 
 
 
 def connect_db():
-  db = sqlite3.connect(app.config['DATABASE'])
+  db = sqlite3.connect(app.config['database'])
   db.row_factory = sqlite3.Row
   return db
 
@@ -29,7 +20,7 @@ def formatDate(isodate):
   monthsFR = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet',
               'août', 'septembre', 'octobre', 'novembre', 'décembre']
   
-  timehandler = datetime.strptime(isodate, DATE_FORMAT)
+  timehandler = datetime.strptime(isodate, app.config['date_format'])
   month = timehandler.month - 1
   return unicode(timehandler.strftime("%d "+monthsFR[month]+" %Y à %Hh%M"), 'utf-8')
 
@@ -38,25 +29,7 @@ def require_login():
     abort(401)
   return 0
 
-
-
-
 app = Flask(__name__)
-app.config.from_object(__name__)
-
-
-
-db = connect_db()
-try:
-  db.execute("SELECT * FROM entries")
-except sqlite3.OperationalError:
-  print "Table 'entries' not found, creating..."
-  db.execute(open("entries.sql").read())
-  db.commit()
-  db.close()
-del(db)
-
-
 
 @app.before_request
 def before_request():
@@ -159,6 +132,7 @@ def login():
     login_info = cur.fetchone()
     if login_info == None:
       flash('Wrong credentials, please try again.', 'error')
+      return render_template('login.html')
 
     auth_string = hashlib.sha256(login_info['salt']+request.form['password']).hexdigest()
     
@@ -190,3 +164,17 @@ def page_not_found(error):
 @app.errorhandler(401)
 def unauthorized(error):
     return render_template('unauthorized.html'), 401
+
+
+conf = json.loads(open('config.json').read())
+app.config.update(conf)
+
+db = connect_db()
+try:
+  db.execute("SELECT * FROM entries")
+except sqlite3.OperationalError:
+  print "Table 'entries' not found, creating..."
+  db.execute(open("entries.sql").read())
+  db.commit()
+  db.close()
+del(db)
