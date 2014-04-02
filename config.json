@@ -1,0 +1,8 @@
+{
+    "SECRET_KEY": "fa26be19de6bff93f70bc2308434e4a440bbad02",
+    "DEBUG": true,
+
+
+    "database": "master.sqlite",
+    "date_format": "%Y-%m-%dT%H:%M:%S"
+}

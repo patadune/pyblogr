@@ -70,7 +70,7 @@ def add_post():
   if request.method == 'POST':
       title = request.form['title']
       content = markdown(request.form['content'])
-      timestamp = datetime.now().strftime(DATE_FORMAT)
+      timestamp = datetime.now().strftime(app.config['date_format'])
       if content:
         cur = g.db.cursor()
         cur.execute('INSERT INTO entries(type, title, content, datetime) VALUES (?, ?, ?, ?)',("text", title, content, timestamp))
@@ -125,6 +125,11 @@ def login():
   if session.has_key('username'):
     flash('You\'re already logged in !')
     return redirect(url_for('index'))
+
+  if app.config['DEBUG']:
+    session['username'] = "DEBUG"
+    flash('Logged in as debug user !')
+    return redirect(url_for('manage'))
 
   if request.method == "POST":
     cur = g.db.cursor()
